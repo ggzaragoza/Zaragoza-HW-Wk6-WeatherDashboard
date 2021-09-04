@@ -1,0 +1,68 @@
+html, body {
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+main {
+    height: 100%;
+}
+  
+section {
+    display: flex;
+    height: 100%;
+}
+
+section div {
+    width: 50%;
+    flex-grow: 1;
+    padding: 100px;
+}
+
+h1 {
+    font-size: 72px;
+    letter-spacing: 1px;
+}
+
+#search {
+    background-image: linear-gradient(#2ea5dd, #ffdd00);
+    color: white;
+}
+
+input {
+    display: block;
+    width: 75%;
+    margin-top: 50px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    border-bottom: 1px solid white;
+    padding-bottom: 15px;
+}
+
+::placeholder {
+    color: white;
+    font-family: 'Barlow', sans-serif;
+    letter-spacing: 1px;
+}
+
+#submit {
+    margin-top: 20px;
+    border: 1px solid white;
+    border-radius: 50px;
+    background-color: transparent;
+    color: white;
+    letter-spacing: 1px;
+    font-family: 'Barlow', sans-serif;
+    padding: 10px;
+    cursor: pointer;
+}
+
+#history {
+    padding: 0;
+    margin-top: 100px;
+    width: 100%;
+    text-align: left;
+}
