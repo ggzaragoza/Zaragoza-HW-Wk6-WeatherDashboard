@@ -26,6 +26,11 @@ h1 {
     letter-spacing: 1px;
 }
 
+h2 {
+    font-size: 48px;
+    font-weight: lighter;
+}
+
 #search {
     background-image: linear-gradient(#2ea5dd, #ffdd00);
     color: white;
@@ -65,4 +70,25 @@ input {
     margin-top: 100px;
     width: 100%;
     text-align: left;
+}
+
+#forecast div {
+    padding: 0;
+}
+
+#current-forecast {
+    background-color: pink;
+    height: 50%;
+    width: 100%;
+}
+
+#current-forecast div {
+    margin-top: 20px;
+    width: 100%;
+}
+
+#five-day {
+    background-color: red;
+    height: 50%;
+    width: 100%;
 }
