@@ -1,89 +1,80 @@
-// base URL for calling current weather data API:
-// http://api.openweathermap.org/data/2.5/weather
-
-
-
-
-
-
-
-
-
-
 var apiKey = "38a07745366c739b58fb8517656acd34";
 
-// var citySearch = document.getElementById('city-search');
-// var city = citySearch.value;
+function getCoordinates() {
 
-
-
-    function getCoordinates() {
-
-        var citySearch = document.getElementById('city-search');
-        var city = citySearch.value;
+    var citySearch = document.getElementById('city-search');
+    var city = citySearch.value;
     
-        // var currentTime = moment().format("h:mm a");
-        // var today = moment().format("dddd, MMMM D, YYYY");
-    
-        var queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
+    var queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
       
-        fetch(queryUrl)
-            .then(function (response) {
-                return response.json();
-                }
-            )
-            .then(function (data) {
-                console.log(data);
-                coordinates = [data.coord.lat, data.coord.lon];
-                console.log(coordinates);
-                
-                getForecast();
-
-                }
-            );
-    
-    }
-    
-    // var cityCoordinates = getCoordinates();
-    // var latitude = coordinates[0];
-    // var longitude = coordinates[1];
-    
-    function getForecast() {
-    
-        var oneCallAPI = "https://api.openweathermap.org/data/2.5/onecall?lat=" + coordinates[0] + "&lon=" + coordinates[1] + "&appid=" + apiKey + "&units=imperial";
-    
-        fetch(oneCallAPI)
-            .then(function (response) {
-                return response.json();
-                }
-            )
-        
+    fetch(queryUrl)
+        .then(function (response) {
+            return response.json();
+            }
+        )
         .then(function (data) {
-                console.log(data);
-                return data;
-                }
-            );
-    }
+            coordinates = [data.coord.lat, data.coord.lon];
+            searchedCity = data.name;
+
+            displayCityName(searchedCity);
+                
+            getForecast();
+            }
+        );
+    
+}
 
 
+function displayCityName() {
+    var cityName = document.getElementById('city-name');
+    cityName.innerHTML = searchedCity;
+}
+    
+    
+function getForecast() {
+    
+    var oneCallAPI = "https://api.openweathermap.org/data/2.5/onecall?lat=" + coordinates[0] + "&lon=" + coordinates[1] + "&appid=" + apiKey + "&units=imperial";
+    
+    fetch(oneCallAPI)
+        .then(function (response) {
+            return response.json();
+            }
+        )   
+        .then(function (data) {
+            displayForecast(data);
+            }
+        );
+}
 
 
+function displayForecast(data) {
 
+    var iconEl = document.getElementById('icon');
+    iconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png");
 
+    var currentCityTemp = document.getElementById('city-temp');
+    currentCityTemp.innerHTML = data.current.temp + "\u00B0" + "F";
 
-  
+    var currentWind = document.getElementById('wind-speed');
+    currentWind.innerHTML = data.current.wind_speed + " MPH";
+
+    var currentHumid = document.getElementById('humidity');
+    currentHumid.innerHTML = data.current.humidity + "%";
+
+    var currentUV = document.getElementById('uv-index');
+    currentUV.innerHTML = data.current.uvi;
+        
+}
+
 
 var submitBtn = document.getElementById('submit');
 submitBtn.addEventListener('click', getCoordinates)
 
-//     var citySearch = document.getElementById('city-search');
-//     var city = citySearch.value;
-
-// });
-// submitBtn.addEventListener('click', getForecast);
 
 
 
+        // var currentTime = moment().format("h:mm a");
+        // var today = moment().format("dddd, MMMM D, YYYY");
 
 // for (var i = 0; i < data.length; i++) {
 //     var listItem = document.createElement('li');
