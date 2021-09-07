@@ -4,6 +4,10 @@ function getCoordinates() {
 
     var citySearch = document.getElementById('city-search');
     var city = citySearch.value;
+
+    if(city) {
+        citySearch.value = '';
+    }
     
     var queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
       
@@ -28,6 +32,10 @@ function getCoordinates() {
 function displayCityName() {
     var cityName = document.getElementById('city-name');
     cityName.innerHTML = searchedCity;
+
+    var cityList = "searchHistory";
+
+    localStorage.setItem(cityList, searchedCity);
 }
     
     
@@ -41,6 +49,7 @@ function getForecast() {
             }
         )   
         .then(function (data) {
+            console.log(data);
             displayForecast(data);
             }
         );
@@ -53,16 +62,41 @@ function displayForecast(data) {
     iconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png");
 
     var currentCityTemp = document.getElementById('city-temp');
-    currentCityTemp.innerHTML = data.current.temp + "\u00B0" + "F";
+    currentCityTemp.textContent = data.current.temp + "\u00B0" + "F";
 
     var currentWind = document.getElementById('wind-speed');
-    currentWind.innerHTML = data.current.wind_speed + " MPH";
+    currentWind.textContent = data.current.wind_speed + " MPH";
 
     var currentHumid = document.getElementById('humidity');
-    currentHumid.innerHTML = data.current.humidity + "%";
+    currentHumid.textContent = data.current.humidity + "%";
 
     var currentUV = document.getElementById('uv-index');
-    currentUV.innerHTML = data.current.uvi;
+    currentUV.textContent = data.current.uvi;
+
+    for (var i = 1; i < 6; i++) {
+        var futureIcon = document.createElement('img');
+        futureIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png");
+
+        var futureTemp = document.createElement('p');
+        futureTemp.textContent = data.daily[i].temp.day + "\u00B0" + "F";
+
+        var futureWind = document.createElement('p');
+        futureWind.textContent = data.daily[i].wind_speed + " MPH";
+
+        var futureHumid = document.createElement('p');
+        futureHumid.textContent = data.daily[i].humidity + "%";
+
+        var singleDay = document.createElement('div');
+        singleDay.appendChild(futureIcon);
+        singleDay.appendChild(futureTemp);
+        singleDay.appendChild(futureWind);
+        singleDay.appendChild(futureHumid);
+
+        var fiveDayDiv = document.getElementById('five-day');
+        fiveDayDiv.appendChild(singleDay);
+    }
+
+    return;
         
 }
 
