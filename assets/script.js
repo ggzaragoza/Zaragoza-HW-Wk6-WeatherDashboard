@@ -4,10 +4,6 @@ function getCoordinates() {
 
     var citySearch = document.getElementById('city-search');
     var city = citySearch.value;
-
-    if(city) {
-        citySearch.value = '';
-    }
     
     var queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
       
@@ -73,6 +69,9 @@ function displayForecast(data) {
     var currentUV = document.getElementById('uv-index');
     currentUV.textContent = data.current.uvi;
 
+    var fiveDayDiv = document.getElementById('five-day');
+    fiveDayDiv.innerHTML = '';
+
     for (var i = 1; i < 6; i++) {
         var futureIcon = document.createElement('img');
         futureIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png");
@@ -92,7 +91,6 @@ function displayForecast(data) {
         singleDay.appendChild(futureWind);
         singleDay.appendChild(futureHumid);
 
-        var fiveDayDiv = document.getElementById('five-day');
         fiveDayDiv.appendChild(singleDay);
     }
 
