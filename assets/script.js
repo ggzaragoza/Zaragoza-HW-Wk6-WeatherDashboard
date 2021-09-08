@@ -126,8 +126,23 @@ function displayForecast(data) {
         var uvValue = document.createElement('h3');
         uvValue.textContent = data.current.uvi;
 
+        var uvLevel = document.createElement('h5');
+
+            if ((Math.trunc(data.current.uvi)) <= 2) {
+                uvLevel.textContent = "Low";
+            } else if ((Math.trunc(data.current.uvi)) === 3 || (Math.trunc(data.current.uvi)) === 4 || (Math.trunc(data.current.uvi)) === 5) {
+                uvLevel.textContent = "Moderate";
+            } else if ((Math.trunc(data.current.uvi)) === 6 || (Math.trunc(data.current.uvi)) === 7) {
+                uvLevel.textContent = "High";
+            } else if ((Math.trunc(data.current.uvi)) === 8 || (Math.trunc(data.current.uvi)) === 9 || (Math.trunc(data.current.uvi)) === 10) {
+                uvLevel.textContent = "Very High";
+            } else {
+                uvLevel.textContent = "Extreme";
+            }
+
         currentUV.appendChild(uvHeading);
         currentUV.appendChild(uvValue);
+        currentUV.appendChild(uvLevel);
 
     var fiveDayDiv = document.getElementById('five-day');
     fiveDayDiv.innerHTML = '';
