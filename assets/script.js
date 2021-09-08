@@ -17,6 +17,7 @@ function getCoordinates() {
             displayCityName(searchedCity);              
             getForecast();
             storeCities(searchedCity);
+            getStoredCities(searchedCity);
             }
         );   
 }
@@ -24,11 +25,13 @@ function getCoordinates() {
 
 function displayCityName() {
     var cityName = document.getElementById('city-name');
-    // cityName.innerHTML = searchedCity;
+    cityName.innerHTML = searchedCity;
 
-    if (cityName !== searchedCity) {
-        cityName.innerHTML = searchedCity;
-    }
+    // if (cityName !== searchedCity) {
+    //     cityName.innerHTML = searchedCity;
+    // } else {
+    //     return;
+    // }
 }
 
 
@@ -38,7 +41,7 @@ function storeCities() {
     searchedCities.push(searchedCity);
     localStorage.setItem("cities", searchedCities);
 
-    getStoredCities();
+    // getStoredCities();
 }
 
 
@@ -47,14 +50,29 @@ function getStoredCities() {
 
     // if (storedCities !== null) {
     //     searchedCities = storedCities;
-    
+
+    var cityHistory = document.getElementById('city-buttons');
+    cityHistory.innerHTML = '';
+
     for (var i = 0; i < searchedCities.length; i++) {
         var cityButton = document.createElement("button");
         cityButton.textContent = searchedCities[i];
-
-        var cityHistory = document.getElementById('city-buttons');
         cityHistory.appendChild(cityButton);
     }
+
+    function clearHistory() {
+        cityHistory.innerHTML = '';
+    }
+    
+    var clearCities = document.getElementById('clear-cities');
+    clearCities.addEventListener('click', clearHistory);
+
+
+    // if (!searchedCities.includes(searchedCity)) {
+
+    // } else {
+    //     return;
+    // }
     
     // var cityHistory = document.getElementById('city-buttons');
     // cityHistory.appendChild(cityButton);
@@ -134,4 +152,3 @@ function displayForecast(data) {
 
 var submitBtn = document.getElementById('submit');
 submitBtn.addEventListener('click', getCoordinates);
-// submitBtn.addEventListener('click', storeCities);
