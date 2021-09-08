@@ -81,7 +81,7 @@ input {
 
 #city-buttons {
     padding: 0;
-    padding-top: 10px;
+    padding-top: 20px;
     text-align: left;
     width: 100%;
 }
@@ -116,7 +116,7 @@ input {
 }
 
 #current-forecast {
-    background-color: pink;
+    /* background-color: pink; */
     height: 50%;
     width: 100%;
     text-align: center;
@@ -126,8 +126,21 @@ input {
     width: 100%;
 }
 
+#weather-data {
+    display: flex;
+}
+
+#weather-data h3 {
+    font-size: 36px;
+    font-weight: lighter;
+}
+
+#city-temp, #wind-speed, #humidity, #uv-index {
+    width: 25%;
+}
+
 #five-day {
-    background-color: red;
+    /* background-color: red; */
     height: 50%;
     width: 100%;
 }

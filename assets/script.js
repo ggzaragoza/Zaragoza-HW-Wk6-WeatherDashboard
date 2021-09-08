@@ -25,13 +25,7 @@ function getCoordinates() {
 
 function displayCityName() {
     var cityName = document.getElementById('city-name');
-    cityName.innerHTML = searchedCity;
-
-    // if (cityName !== searchedCity) {
-    //     cityName.innerHTML = searchedCity;
-    // } else {
-    //     return;
-    // }
+    cityName.innerHTML = "<h2>" + searchedCity + "</h2";
 }
 
 
@@ -40,16 +34,11 @@ var searchedCities = [];
 function storeCities() {
     searchedCities.push(searchedCity);
     localStorage.setItem("cities", searchedCities);
-
-    // getStoredCities();
 }
 
 
 function getStoredCities() {
     localStorage.getItem("cities");
-
-    // if (storedCities !== null) {
-    //     searchedCities = storedCities;
 
     var cityHistory = document.getElementById('city-buttons');
     cityHistory.innerHTML = '';
@@ -66,28 +55,7 @@ function getStoredCities() {
     
     var clearCities = document.getElementById('clear-cities');
     clearCities.addEventListener('click', clearHistory);
-
-
-    // if (!searchedCities.includes(searchedCity)) {
-
-    // } else {
-    //     return;
-    // }
-    
-    // var cityHistory = document.getElementById('city-buttons');
-    // cityHistory.appendChild(cityButton);
 }
-
-
-// function renderCityButtons() {
-//     for (var i = 0; i < searchedCities.length; i++) {
-//         var cityButton = document.createElement("button");
-//         cityButton.textContent = searchedCities[i];
-//     }
-
-//     var cityHistory = document.getElementById('city-buttons');
-//     cityHistory.appendChild(cityButton);
-// }
     
     
 function getForecast() {    
@@ -110,16 +78,56 @@ function displayForecast(data) {
     iconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png");
 
     var currentCityTemp = document.getElementById('city-temp');
-    currentCityTemp.textContent = data.current.temp + "\u00B0" + "F";
+
+        currentCityTemp.innerHTML = '';
+
+        var tempHeading = document.createElement('h4');
+        tempHeading.textContent = "CURRENT";
+
+        var tempValue = document.createElement('h3');
+        tempValue.textContent = data.current.temp + "\u00B0" + "F";
+
+        currentCityTemp.appendChild(tempHeading);
+        currentCityTemp.appendChild(tempValue);
 
     var currentWind = document.getElementById('wind-speed');
-    currentWind.textContent = data.current.wind_speed + " MPH";
+
+        currentWind.innerHTML = '';
+
+        var windHeading = document.createElement('h4');
+        windHeading.textContent = "WIND SPEED";
+
+        var windValue = document.createElement('h3');
+        windValue.textContent = data.current.wind_speed + " MPH";
+
+        currentWind.appendChild(windHeading);
+        currentWind.appendChild(windValue);
 
     var currentHumid = document.getElementById('humidity');
-    currentHumid.textContent = data.current.humidity + "%";
+
+        currentHumid.innerHTML = '';
+
+        var humidHeading = document.createElement('h4');
+        humidHeading.textContent = "HUMIDITY";
+
+        var humidValue = document.createElement('h3');
+        humidValue.textContent = data.current.humidity + "%";
+
+        currentHumid.appendChild(humidHeading);
+        currentHumid.appendChild(humidValue);
 
     var currentUV = document.getElementById('uv-index');
-    currentUV.textContent = data.current.uvi;
+
+        currentUV.innerHTML = '';
+
+        var uvHeading = document.createElement('h4');
+        uvHeading.textContent = "UV INDEX";
+
+        var uvValue = document.createElement('h3');
+        uvValue.textContent = data.current.uvi;
+
+        currentUV.appendChild(uvHeading);
+        currentUV.appendChild(uvValue);
 
     var fiveDayDiv = document.getElementById('five-day');
     fiveDayDiv.innerHTML = '';
@@ -152,3 +160,17 @@ function displayForecast(data) {
 
 var submitBtn = document.getElementById('submit');
 submitBtn.addEventListener('click', getCoordinates);
+
+
+
+
+
+
+
+
+
+
+
+
+    // if (storedCities !== null) {
+    //     searchedCities = storedCities;
