@@ -9,8 +9,6 @@ function getCoordinates(event, savedCity) {
     if (savedCity) {
         city = savedCity
     }
-
-    console.log(savedCity);
     
     var queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
       
@@ -197,17 +195,3 @@ function displayForecast(data) {
 
 var submitBtn = document.getElementById('submit');
 submitBtn.addEventListener('click', getCoordinates);
-
-
-
-
-
-
-
-
-
-
-
-
-    // if (storedCities !== null) {
-    //     searchedCities = storedCities;
