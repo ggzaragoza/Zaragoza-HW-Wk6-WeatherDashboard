@@ -1,8 +1,16 @@
 var apiKey = "38a07745366c739b58fb8517656acd34";
 
-function getCoordinates() {
+function getCoordinates(event, savedCity) {
+    event.preventDefault();
+
     var citySearch = document.getElementById('city-search');
     var city = citySearch.value;
+
+    if (savedCity) {
+        city = savedCity
+    }
+
+    console.log(savedCity);
     
     var queryUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=imperial";
       
@@ -25,7 +33,7 @@ function getCoordinates() {
 
 function displayCityName() {
     var cityName = document.getElementById('city-name');
-    cityName.innerHTML = "<h2>" + searchedCity + "</h2";
+    cityName.innerHTML = "<h2>" + searchedCity + "</h2>";
 }
 
 
@@ -45,6 +53,11 @@ function getStoredCities() {
 
     for (var i = 0; i < searchedCities.length; i++) {
         var cityButton = document.createElement("button");
+
+        cityButton.addEventListener('click', function(event) {
+            getCoordinates(event, event.target.textContent)
+        })
+
         cityButton.textContent = searchedCities[i];
         cityHistory.appendChild(cityButton);
     }
@@ -52,7 +65,7 @@ function getStoredCities() {
     function clearHistory() {
         cityHistory.innerHTML = '';
     }
-    
+
     var clearCities = document.getElementById('clear-cities');
     clearCities.addEventListener('click', clearHistory);
 }
@@ -74,6 +87,10 @@ function getForecast() {
 
 
 function displayForecast(data) {
+    var date = moment.unix(data.current.dt).format("dddd, MMMM D, YYYY");
+    var dateEl = document.getElementById('date');
+    dateEl.innerHTML = "<h3>" + date + "</h3>";
+
     var iconEl = document.getElementById('icon');
     iconEl.setAttribute("src", "http://openweathermap.org/img/wn/" + data.current.weather[0].icon + "@2x.png");
 
@@ -148,6 +165,10 @@ function displayForecast(data) {
     fiveDayDiv.innerHTML = '';
 
     for (var i = 1; i < 6; i++) {
+        var futureDate = moment.unix(data.daily[i].dt).format("MM/DD");
+        var futureDateEl = document.createElement('h4');
+        futureDateEl.textContent = futureDate;
+
         var futureIcon = document.createElement('img');
         futureIcon.setAttribute("src", "http://openweathermap.org/img/wn/" + data.daily[i].weather[0].icon + "@2x.png");
 
@@ -161,6 +182,7 @@ function displayForecast(data) {
         futureHumid.textContent = data.daily[i].humidity + "%";
 
         var singleDay = document.createElement('div');
+        singleDay.appendChild(futureDateEl);
         singleDay.appendChild(futureIcon);
         singleDay.appendChild(futureTemp);
         singleDay.appendChild(futureWind);
