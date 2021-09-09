@@ -145,14 +145,19 @@ function displayForecast(data) {
 
             if ((Math.trunc(data.current.uvi)) <= 2) {
                 uvLevel.textContent = "Low";
+                uvLevel.setAttribute("style", "color: green")
             } else if ((Math.trunc(data.current.uvi)) === 3 || (Math.trunc(data.current.uvi)) === 4 || (Math.trunc(data.current.uvi)) === 5) {
                 uvLevel.textContent = "Moderate";
+                uvLevel.setAttribute("style", "color: #ffdd00")
             } else if ((Math.trunc(data.current.uvi)) === 6 || (Math.trunc(data.current.uvi)) === 7) {
                 uvLevel.textContent = "High";
+                uvLevel.setAttribute("style", "color: orange")
             } else if ((Math.trunc(data.current.uvi)) === 8 || (Math.trunc(data.current.uvi)) === 9 || (Math.trunc(data.current.uvi)) === 10) {
                 uvLevel.textContent = "Very High";
+                uvLevel.setAttribute("style", "color: red")
             } else {
                 uvLevel.textContent = "Extreme";
+                uvLevel.setAttribute("style", "color: black")
             }
 
         currentUV.appendChild(uvHeading);
